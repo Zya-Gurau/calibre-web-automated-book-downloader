@@ -12,6 +12,10 @@ from config import SUPPORTED_FORMATS, BOOK_LANGUAGE, AA_BASE_URL
 from env import AA_DONATOR_KEY, USE_CF_BYPASS 
 from models import BookInfo, SearchFilters
 
+from calibre.library import db
+
+db = db('/home/goose/Books').new_api
+
 logger = setup_logger(__name__)
 
 def search_books(query: str, filters: SearchFilters) -> List[BookInfo]:
@@ -304,6 +308,9 @@ def download_book(book_info: BookInfo, book_path: Path) -> bool:
                 with open(book_path, "wb") as f:
                     f.write(data.getbuffer())
                 logger.info(f"Writing `{book_info.title}` successfully")
+
+                db.add_books(['/home/goose/Books/' + book_info.title])
+                db.close()
                 return True
             
         except Exception as e:
