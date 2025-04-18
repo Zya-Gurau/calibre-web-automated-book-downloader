@@ -1,6 +1,6 @@
 services:
   calibre-web-automated-book-downloader:
-    image: ghcr.io/Zya-Gurau/calibre-web-automated-book-downloader:latest
+    image: ghcr.io/zya-gurau/calibre-web-automated-book-downloader:latest
     environment:
       FLASK_PORT: 8084
       LOG_LEVEL: info
